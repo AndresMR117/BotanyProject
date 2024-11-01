@@ -1,0 +1,15 @@
+.auth-buttons {
+    position: absolute; /* Posiciona los botones de forma absoluta */
+    top: 10px;         /* Ajusta la distancia desde la parte superior */
+    left: 10px;        /* Ajusta la distancia desde la izquierda */
+  }
+  
+  .auth-buttons a {
+    margin-right: 10px; /* Espacio entre los botones */
+    text-decoration: none; /* Sin subrayado */
+    color: #fff; /* Color del texto */
+  }
+  
+  .auth-buttons a:hover {
+    color: #ccc; /* Color al pasar el mouse */
+  }
