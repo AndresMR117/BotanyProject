@@ -1,0 +1,32 @@
+
+.navbar ul li {
+  display: inline;
+  margin-right: 1rem;
+}
+
+.navbar ul li a {
+  color: white;
+  text-decoration: none;
+}
+
+.navbar {
+  display: flex;
+  justify-content: center;
+  background-color: #66bb6a;
+  padding: 1rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.navbar a {
+  color: white;
+  padding: 0.8rem 2rem;
+  text-decoration: none;
+  font-size: 1.2em;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.navbar a:hover {
+  background-color: #4caf50;
+  border-radius: 8px;
+}
