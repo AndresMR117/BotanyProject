@@ -1,31 +1,160 @@
-import React from 'react';
+// src/Pages/BitacoraList/BitacoraList.jsx
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './BitacoraList.css';
 
 const BitacoraList = () => {
   const navigate = useNavigate();
+  const [bitacoras, setBitacoras] = useState([]);
+  const [filteredBitacoras, setFilteredBitacoras] = useState([]);
+  const [filters, setFilters] = useState({
+    title: '',
+    startDate: '',
+    endDate: '',
+    location: '',
+    habitat: '',
+    climate: '',
+  });
+  const [sortOrder, setSortOrder] = useState('date');
 
-  // Función para navegar a la página de detalle de una bitácora específica
+  useEffect(() => {
+    const storedBitacoras = JSON.parse(localStorage.getItem('bitacoras')) || [];
+    setBitacoras(storedBitacoras);
+    setFilteredBitacoras(storedBitacoras);
+  }, []);
+
+  useEffect(() => {
+    let result = bitacoras;
+
+    if (filters.title) {
+      result = result.filter(bitacora =>
+        bitacora.title.toLowerCase().includes(filters.title.toLowerCase())
+      );
+    }
+
+    if (filters.startDate) {
+      result = result.filter(bitacora => new Date(bitacora.dateTime) >= new Date(filters.startDate));
+    }
+    if (filters.endDate) {
+      result = result.filter(bitacora => new Date(bitacora.dateTime) <= new Date(filters.endDate));
+    }
+
+    if (filters.location) {
+      result = result.filter(bitacora =>
+        bitacora.location.toLowerCase().includes(filters.location.toLowerCase())
+      );
+    }
+
+    if (filters.habitat) {
+      result = result.filter(bitacora =>
+        bitacora.habitatDescription.toLowerCase().includes(filters.habitat.toLowerCase())
+      );
+    }
+
+    if (filters.climate) {
+      result = result.filter(bitacora =>
+        bitacora.climate.toLowerCase().includes(filters.climate.toLowerCase())
+      );
+    }
+
+    if (sortOrder === 'date') {
+      result.sort((a, b) => new Date(a.dateTime) - new Date(b.dateTime));
+    } else if (sortOrder === 'location') {
+      result.sort((a, b) => a.location.localeCompare(b.location));
+    } else if (sortOrder === 'relevance') {
+      result.sort((a, b) => a.title.localeCompare(b.title));
+    }
+
+    setFilteredBitacoras(result);
+  }, [bitacoras, filters, sortOrder]);
+
   const handleNavigate = (id) => {
-    navigate(`/bitacora-detail/${id}`);
+    navigate(`/bitacoras/${id}`);
+  };
+
+  const handleFilterChange = (e) => {
+    const { name, value } = e.target;
+    setFilters(prevFilters => ({
+      ...prevFilters,
+      [name]: value,
+    }));
+  };
+
+  const handleSortChange = (e) => {
+    setSortOrder(e.target.value);
   };
 
   return (
     <section className="bitacora-list">
-      <div className="bitacora-item" onClick={() => handleNavigate(1)}>
-        <h2 className="bitacora-title">Bitácora 1</h2>
-        <p className="bitacora-description">Descripción de la bitácora...</p>
+      <div className="filters">
+        <h2 className="filters-title">Filtrar Bitácoras</h2>
+        <input
+          type="text"
+          name="title"
+          placeholder="Buscar por título"
+          value={filters.title}
+          onChange={handleFilterChange}
+        />
+        <input
+          type="date"
+          name="startDate"
+          value={filters.startDate}
+          onChange={handleFilterChange}
+        />
+        <input
+          type="date"
+          name="endDate"
+          value={filters.endDate}
+          onChange={handleFilterChange}
+        />
+        <input
+          type="text"
+          name="location"
+          placeholder="Buscar por ubicación"
+          value={filters.location}
+          onChange={handleFilterChange}
+        />
+        <input
+          type="text"
+          name="habitat"
+          placeholder="Buscar por hábitat"
+          value={filters.habitat}
+          onChange={handleFilterChange}
+        />
+        <input
+          type="text"
+          name="climate"
+          placeholder="Buscar por clima"
+          value={filters.climate}
+          onChange={handleFilterChange}
+        />
+        <select value={sortOrder} onChange={handleSortChange}>
+          <option value="date">Fecha</option>
+          <option value="location">Ubicación</option>
+          <option value="relevance">Relevancia</option>
+        </select>
       </div>
-      <div className="bitacora-item" onClick={() => handleNavigate(2)}>
-        <h2 className="bitacora-title">Bitácora 2</h2>
-        <p className="bitacora-description">Descripción de la bitácora...</p>
+      
+      <div className="bitacora-items">
+        {filteredBitacoras.map(bitacora => (
+          <div key={bitacora.id} className="bitacora-item" onClick={() => handleNavigate(bitacora.id)}>
+            <h3>{bitacora.title}</h3>
+            <p>Fecha y Hora: {new Date(bitacora.dateTime).toLocaleString()}</p> {/* Cambiamos a bitacora.dateTime */}
+            <p>Ubicación: {bitacora.location}</p>
+            <p>Hábitat: {bitacora.habitatDescription}</p>
+            <p>Clima: {bitacora.climate}</p>
+          </div>
+        ))}
       </div>
-      {/* Añade más bitácoras según sea necesario */}
     </section>
   );
 };
 
 export default BitacoraList;
+
+
+
+
 
 
 

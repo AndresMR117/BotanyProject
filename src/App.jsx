@@ -11,8 +11,8 @@ import HomePage from './Pages/HomePage/HomePage';
 import BitacoraForm from './Pages/BitacoraForm/BitacoraForm';
 import BitacoraList from './Pages/BitacoraList/BitacoraList';
 import BitacoraDetail from './Pages/BitacoraDetail/BitacoraDetail';
-import Login from './Pages/Login/Login'; 
-import Register from './Pages/Register/Register'; 
+import EditBitacora from './Pages/EditBitacora/EditBitacora';
+
 
 import './App.css';
 
@@ -44,8 +44,7 @@ const App = () => {
               <Route path="/bitacoras" element={<BitacoraList />} />
               <Route path="/bitacoras/nueva" element={<BitacoraForm />} />
               <Route path="/bitacoras/:id" element={<BitacoraDetail />} />
-              <Route path="/login" element={<Login />} /> 
-              <Route path="/register" element={<Register />} /> 
+              <Route path="/bitacoras/edit/:id" element={<EditBitacora />} />
             </Routes>
           </main>
           <Footer />

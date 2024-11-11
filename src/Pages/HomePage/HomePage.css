@@ -1,13 +1,60 @@
-/* Estilos específicos para la página de inicio */
+/* Estilos generales para la página de inicio */
+.home-section {
+  background-image: url('/src/assets/Images/fondo.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  color: white;
+  padding: 60px 20px;
+}
+
+.home-content {
+  max-width: 800px;
+  margin: auto;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
 .home-welcome {
-  font-size: 2.2em;
-  color: #388e3c;
+  font-size: 2.8em;
+  color: #aed581;
   margin-bottom: 20px;
+  text-align: center;
 }
 
 .home-description {
-  font-size: 1.2em;
-  color: #666;
+  font-size: 1.4em;
+  color: #e0e0e0;
   line-height: 1.6;
+  text-align: center;
 }
+
+.home-features, .home-instructions {
+  margin-top: 30px;
+}
+
+.home-features h2, .home-instructions h2 {
+  font-size: 1.8em;
+  color: #ffcc80;
+  margin-bottom: 15px;
+}
+
+.home-features ul {
+  list-style-type: square;
+  padding-left: 20px;
+  color: #c8e6c9;
+  font-size: 1.1em;
+}
+
+.home-features li {
+  margin-bottom: 10px;
+}
+
+.home-instructions p {
+  font-size: 1.2em;
+  color: #e0e0e0;
+}
+
 

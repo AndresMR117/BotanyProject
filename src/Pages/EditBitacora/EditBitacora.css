@@ -1,0 +1,154 @@
+/* src/Pages/EditBitacora/EditBitacora.css */
+
+.edit-bitacora {
+    padding: 2rem;
+    max-width: 600px;
+    margin: 2rem auto;
+    background: #f9f9fb; /* Fondo claro para reducir la fatiga visual */
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15); /* Sombra sutil para dar profundidad */
+    transition: transform 0.3s ease;
+}
+
+.edit-bitacora:hover {
+    transform: scale(1.01); /* Efecto ligero de agrandamiento al pasar el cursor */
+}
+
+.edit-bitacora h1 {
+    color: #333;
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 0.5rem;
+}
+
+.edit-bitacora label {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.2rem;
+    color: #555;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.edit-bitacora input,
+.edit-bitacora textarea {
+    width: 100%;
+    padding: 0.8rem;
+    margin-top: 0.5rem;
+    font-size: 1rem;
+    color: #333;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    background-color: #ffffff;
+    transition: border-color 0.3s ease;
+}
+
+.edit-bitacora input:focus,
+.edit-bitacora textarea:focus {
+    border-color: #4caf50; /* Color de borde para mejorar el enfoque */
+    outline: none;
+    box-shadow: 0 0 8px rgba(76, 175, 80, 0.2);
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1.5rem;
+    gap: 0.5rem;
+}
+
+button {
+    flex: 1;
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    border-radius: 12px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+button:first-child {
+    background-color: #f3f3f3;
+    color: #333;
+}
+
+button:first-child:hover {
+    background-color: #e0e0e0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+button:last-child {
+    background-color: #4caf50;
+    color: #fff;
+}
+
+button:last-child:hover {
+    background-color: #45a049;
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+}
+
+.delete-button {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0.3rem;
+}
+
+.delete-button:hover {
+    background-color: #c0392b;
+    transform: scale(1.05); /* Agranda ligeramente al pasar el cursor */
+}
+
+.delete-button::before {
+    content: '🗑️ '; /* Icono de basura antes del texto */
+    margin-right: 4px;
+}
+
+.edit-bitacora input[type="date"] {
+    color: #666;
+    font-family: inherit;
+}
+
+.edit-bitacora textarea {
+    resize: vertical; /* Permite redimensionar solo en vertical */
+    min-height: 100px;
+    max-height: 200px;
+}
+
+.edit-bitacora input[type="datetime-local"] {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    font-size: 1rem;
+    color: #333;
+    background-color: #ffffff;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%234caf50' viewBox='0 0 24 24'%3E%3Cpath d='M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11zm-7-4c1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3 1.34 3 3 3z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 1.5rem;
+    transition: border-color 0.3s ease;
+}
+
+.edit-bitacora input[type="datetime-local"]:focus {
+    border-color: #4caf50; /* Cambia el color del borde al enfoque */
+    outline: none;
+    box-shadow: 0 0 8px rgba(76, 175, 80, 0.2);
+}
