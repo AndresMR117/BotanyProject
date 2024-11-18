@@ -12,6 +12,7 @@ import BitacoraForm from './Pages/BitacoraForm/BitacoraForm';
 import BitacoraList from './Pages/BitacoraList/BitacoraList';
 import BitacoraDetail from './Pages/BitacoraDetail/BitacoraDetail';
 import EditBitacora from './Pages/EditBitacora/EditBitacora';
+import AddNote from './Pages/AddNote/AddNote';
 import Login from './Components/Login/Login';
 import appFirebase from './Components/Firebase/FirebaseConfig'
 import {getAuth, onAuthStateChanged} from 'firebase/auth'
@@ -59,6 +60,7 @@ return (
               <Route path="/bitacoras" element={<BitacoraList />} />
               <Route path="/bitacoras/nueva" element={<BitacoraForm />} />
               <Route path="/bitacoras/:id" element={<BitacoraDetail />} />
+              <Route path="/bitacoras/:id/add-note" element={<AddNote />} />
               <Route path="/bitacoras/edit/:id" element={<EditBitacora />} />
             </Routes>
           </main>

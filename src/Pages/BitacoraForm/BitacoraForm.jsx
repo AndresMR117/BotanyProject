@@ -16,6 +16,20 @@ const BitacoraForm = () => {
   ]);
 
   const handleAddSpecies = () => {
+    // Validación: Verifica si los campos requeridos de la última especie están completos
+    const lastSpecies = species[species.length - 1];
+    if (
+      !lastSpecies.name ||
+      !lastSpecies.commonName ||
+      !lastSpecies.family ||
+      !lastSpecies.quantity ||
+      !lastSpecies.state
+    ) {
+      alert('Por favor, completa todos los campos de la especie actual antes de agregar otra.');
+      return;
+    }
+
+    // Si todo está completo, agrega una nueva especie
     setSpecies([...species, { name: '', commonName: '', family: '', quantity: 1, state: '', photos: [] }]);
   };
 
@@ -23,7 +37,7 @@ const BitacoraForm = () => {
     const newBitacora = {
       id: Date.now(),
       title,
-      dateTime, // Actualizamos aquí
+      dateTime,
       location,
       climate,
       habitatDescription,
@@ -45,7 +59,7 @@ const BitacoraForm = () => {
       </div>
       <div className="form-field">
         <label className="form-label">Fecha y Hora del Muestreo</label>
-        <input className="form-input" type="datetime-local" value={dateTime} onChange={(e) => setDateTime(e.target.value)} /> {/* Actualizamos aquí */}
+        <input className="form-input" type="datetime-local" value={dateTime} onChange={(e) => setDateTime(e.target.value)} />
       </div>
       <div className="form-field">
         <label className="form-label">Localización Geográfica (Coordenadas GPS)</label>
@@ -106,6 +120,7 @@ const BitacoraForm = () => {
               newSpecies[index].state = e.target.value;
               setSpecies(newSpecies);
             }}>
+              <option value="">Seleccionar</option>
               <option value="viva">Viva</option>
               <option value="seca">Seca</option>
             </select>
