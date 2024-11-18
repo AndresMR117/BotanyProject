@@ -36,7 +36,8 @@ header {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #ffffff;
+  background-color: #b5dcb9;
+  background-image: url("/src/assets/Images/fondo2.jpeg");
   margin-top: -2px;
 }
 

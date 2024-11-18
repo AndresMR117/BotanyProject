@@ -6,7 +6,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import { getFirestore, doc, setDoc } from "firebase/firestore";
+import { getFirestore, doc, setDoc, getDoc } from "firebase/firestore";
 import './Login.css';
 
 const auth = getAuth(appFirebase);
@@ -16,22 +16,22 @@ function Login() {
   const [isRegistrando, setIsRegistrando] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [rol, setRol] = useState("");
+  const [nombre, setNombre] = useState("");
 
   const handleChangeEmail = (e) => setEmail(e.target.value);
   const handleChangePassword = (e) => setPassword(e.target.value);
-  const handleChangeRol = (e) => setRol(e.target.value);
+  const handleChangeNombre = (e) => setNombre(e.target.value);
 
-  async function registrarUsuario(email, password, rol) {
+  async function registrarUsuario(email, password, nombre) {
     try {
       const usuarioFirebase = await createUserWithEmailAndPassword(auth, email, password);
       const docuRef = doc(firestore, `usuarios/${usuarioFirebase.user.uid}`);
-      await setDoc(docuRef, { correo: email, rol: rol });
+      await setDoc(docuRef, { correo: email, nombre: nombre });
       
       Swal.fire({
         icon: 'success',
         title: 'Registro exitoso',
-        text: `Bienvenido ${email}, tu cuenta ha sido creada.`,
+        text: `Bienvenido ${nombre}, tu cuenta ha sido creada.`,
         confirmButtonText: 'Aceptar'
       });
     } catch (error) {
@@ -44,50 +44,68 @@ function Login() {
     }
   }
 
+  async function iniciarSesion(email, password) {
+    try {
+      const usuarioFirebase = await signInWithEmailAndPassword(auth, email, password);
+      const uid = usuarioFirebase.user.uid;
+
+      const docuRef = doc(firestore, `usuarios/${uid}`);
+      const docuSnap = await getDoc(docuRef);
+
+      if (docuSnap.exists()) {
+        const datosUsuario = docuSnap.data();
+        Swal.fire({
+          icon: 'success',
+          title: 'Inicio de sesión exitoso',
+          text: `¡Bienvenido de nuevo, ${datosUsuario.nombre}!`,
+          confirmButtonText: 'Continuar'
+        });
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'No se pudo encontrar la información del usuario.',
+          confirmButtonText: 'Aceptar'
+        });
+      }
+    } catch (error) {
+      if (error.code === 'auth/too-many-requests') {
+        Swal.fire({
+          icon: 'warning',
+          title: 'Demasiados intentos',
+          text: 'Has intentado iniciar sesión demasiadas veces. Espera un momento y vuelve a intentarlo.',
+          confirmButtonText: 'Aceptar'
+        });
+      } else if (error.code === 'auth/user-not-found') {
+        Swal.fire({
+          icon: 'error',
+          title: 'Usuario no encontrado',
+          text: 'No existe una cuenta con ese correo electrónico.',
+          confirmButtonText: 'Intentar de nuevo'
+        });
+      } else if (error.code === 'auth/wrong-password') {
+        Swal.fire({
+          icon: 'error',
+          title: 'Contraseña incorrecta',
+          text: 'La contraseña ingresada es incorrecta.',
+          confirmButtonText: 'Intentar de nuevo'
+        });
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error al iniciar sesión',
+          confirmButtonText: 'Intentar de nuevo'
+        });
+      }
+    }
+  }
+
   function submitHandler(e) {
     e.preventDefault();
     if (isRegistrando) {
-      registrarUsuario(email, password, rol);
+      registrarUsuario(email, password, nombre);
     } else {
-      signInWithEmailAndPassword(auth, email, password)
-        .then(() => {
-          Swal.fire({
-            icon: 'success',
-            title: 'Inicio de sesión exitoso',
-            text: `¡Bienvenido de nuevo, ${email}!`,
-            confirmButtonText: 'Continuar'
-          });
-        })
-        .catch((error) => {
-          if (error.code === 'auth/too-many-requests') {
-            Swal.fire({
-              icon: 'warning',
-              title: 'Demasiados intentos',
-              text: 'Has intentado iniciar sesión demasiadas veces. Espera un momento y vuelve a intentarlo.',
-              confirmButtonText: 'Aceptar'
-            });
-          } else if (error.code === 'auth/user-not-found') {
-            Swal.fire({
-              icon: 'error',
-              title: 'Usuario no encontrado',
-              text: 'No existe una cuenta con ese correo electrónico.',
-              confirmButtonText: 'Intentar de nuevo'
-            });
-          } else if (error.code === 'auth/wrong-password') {
-            Swal.fire({
-              icon: 'error',
-              title: 'Contraseña incorrecta',
-              text: 'La contraseña ingresada es incorrecta.',
-              confirmButtonText: 'Intentar de nuevo'
-            });
-          } else {
-            Swal.fire({
-              icon: 'error',
-              title: 'Error al iniciar sesión',
-              confirmButtonText: 'Intentar de nuevo'
-            });
-          }
-        });
+      iniciarSesion(email, password);
     }
   }
 
@@ -95,7 +113,7 @@ function Login() {
     setIsRegistrando(!isRegistrando);
     setEmail("");
     setPassword("");
-    setRol("");
+    setNombre("");
   };
 
   return (
@@ -121,12 +139,12 @@ function Login() {
           <form className="formulario__register" onSubmit={submitHandler}>
             <h2>Regístrate</h2>
             <input 
-              name="rol" 
+              name="nombre" 
               type="text" 
-              placeholder="Rol" 
+              placeholder="Nombre" 
               required 
-              value={rol} 
-              onChange={handleChangeRol} 
+              value={nombre} 
+              onChange={handleChangeNombre} 
               className="imputs"
             />
             <input 
