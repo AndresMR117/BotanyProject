@@ -1,5 +1,5 @@
 // src/App.jsx
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { ThemeProvider, CssBaseline, createTheme } from '@mui/material';
 
@@ -12,7 +12,10 @@ import BitacoraForm from './Pages/BitacoraForm/BitacoraForm';
 import BitacoraList from './Pages/BitacoraList/BitacoraList';
 import BitacoraDetail from './Pages/BitacoraDetail/BitacoraDetail';
 import EditBitacora from './Pages/EditBitacora/EditBitacora';
-
+import Login from './Components/Login/Login';
+import appFirebase from './Components/Firebase/FirebaseConfig'
+import {getAuth, onAuthStateChanged} from 'firebase/auth'
+const auth = getAuth(appFirebase)
 
 import './App.css';
 
@@ -31,10 +34,22 @@ const theme = createTheme({
 });
 
 const App = () => {
-  return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <Router>
+
+  const[usuario, setUsuario] = useState(null);
+
+  onAuthStateChanged(auth, (usuarioFirebase)=>{
+    if (usuarioFirebase) {
+      setUsuario(usuarioFirebase)
+    }else{
+      setUsuario(null)
+    }
+  })
+
+return (
+  <ThemeProvider theme={theme}>
+    <CssBaseline />
+    <Router>
+      {usuario ? (
         <div className="app-container">
           <Header />
           <NavBar />
@@ -49,12 +64,20 @@ const App = () => {
           </main>
           <Footer />
         </div>
-      </Router>
-    </ThemeProvider>
-  );
+      ) : (
+        <Login />
+      )}
+    </Router>
+  </ThemeProvider>
+);
 };
 
 export default App;
+
+
+
+
+
 
 
 

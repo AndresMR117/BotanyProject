@@ -103,3 +103,8 @@
   }
 }
 
+.export-pdf-button{
+  position: absolute;
+  top: 390px;
+  right: 375px;
+}

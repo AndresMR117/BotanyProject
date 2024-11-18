@@ -1,4 +1,3 @@
-// src/Pages/BitacoraForm/BitacoraForm.jsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './BitacoraForm.css';
@@ -6,7 +5,7 @@ import './BitacoraForm.css';
 const BitacoraForm = () => {
   const navigate = useNavigate();
   const [title, setTitle] = useState('');
-  const [date, setDate] = useState('');
+  const [dateTime, setDateTime] = useState('');
   const [location, setLocation] = useState('');
   const [climate, setClimate] = useState('');
   const [habitatDescription, setHabitatDescription] = useState('');
@@ -24,7 +23,7 @@ const BitacoraForm = () => {
     const newBitacora = {
       id: Date.now(),
       title,
-      date,
+      dateTime, // Actualizamos aquí
       location,
       climate,
       habitatDescription,
@@ -46,7 +45,7 @@ const BitacoraForm = () => {
       </div>
       <div className="form-field">
         <label className="form-label">Fecha y Hora del Muestreo</label>
-        <input className="form-input" type="datetime-local" value={date} onChange={(e) => setDate(e.target.value)} />
+        <input className="form-input" type="datetime-local" value={dateTime} onChange={(e) => setDateTime(e.target.value)} /> {/* Actualizamos aquí */}
       </div>
       <div className="form-field">
         <label className="form-label">Localización Geográfica (Coordenadas GPS)</label>
@@ -132,7 +131,3 @@ const BitacoraForm = () => {
 };
 
 export default BitacoraForm;
-
-
-
-
