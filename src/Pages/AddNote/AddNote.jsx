@@ -8,6 +8,12 @@ const AddNote = () => {
   const [note, setNote] = useState('');
 
   const handleSave = () => {
+
+    if (note.trim() === '') {
+      alert('La nota no puede estar vacía.');
+      return;
+    }
+
     const storedBitacoras = JSON.parse(localStorage.getItem('bitacoras')) || [];
     const updatedBitacoras = storedBitacoras.map((b) =>
       b.id === Number(id)
@@ -40,5 +46,3 @@ const AddNote = () => {
 };
 
 export default AddNote;
-
-

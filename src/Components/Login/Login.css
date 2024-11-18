@@ -175,27 +175,97 @@ box-shadow: 0 0 10px rgba(4, 255, 0, 0.689);
     opacity: 1;
 }
 
-/* Adaptaciones para dispositivos pequeños */
-@media screen and (max-width: 850px) {
-    main {
-        margin-top: 50px;
+/* Para dispositivos medianos (tabletas) */
+@media (max-width: 1024px) {
+    .contenedor__todo {
+      flex-direction: column;
+      align-items: center;
+      top: 100px;
     }
-
+  
     .caja__trasera {
-        max-width: 350px;
-        height: auto;
-        flex-direction: column;
-        margin: auto;
-        padding: 20px;
+      flex-direction: column;
+      text-align: center;
+      padding: 20px;
     }
-
+  
+    .caja__trasera button {
+      margin-top: 15px;
+      padding: 10px 30px;
+      font-size: 18px;
+      margin-left:210px;
+    }
+  
     .contenedor__login-register {
-        top: -10px;
-        left: -5px;
-        margin: auto;
+      max-width: 500px;
+      padding: 0 20px;
     }
+  
+    .contenedor__login-register form h2 {
+      font-size: 26px;
+    }
+  
+    .contenedor__login-register form input,
+    .contenedor__login-register form button {
+      font-size: 18px;
+      padding: 10px;
+    }
+  }
+  
 
-    .contenedor__login-register form {
-        padding: 20px;
+/* Para dispositivos pequeños (teléfonos móviles) */
+@media (max-width: 440px) {
+    .contenedor__todo {
+      flex-direction: column;
+      align-items: center;
+      top: 50px;
+      padding: 10px;
     }
-}
+  
+    .caja__trasera {
+      flex-direction: column;
+      text-align: center;
+      padding: 15px;
+    }
+  
+    .caja__trasera div h3 {
+      font-size: 24px;
+    }
+  
+    .caja__trasera div p {
+      font-size: 16px;
+    }
+  
+    .caja__trasera button {
+      margin: 10px auto;
+      margin-top: 15px;
+      padding: 10px 20px;
+      font-size: 18px;
+      margin-left:50px;
+    }
+  
+    .contenedor__login-register {
+      max-width: 100%;
+      padding: 0 10px;
+    }
+  
+    .contenedor__login-register form {
+      padding: 20px 15px;
+    }
+  
+    .contenedor__login-register form h2 {
+      font-size: 24px;
+    }
+  
+    .contenedor__login-register form input,
+    .contenedor__login-register form button {
+      font-size: 16px;
+      padding: 8px;
+    }
+  
+    .contenedor__login-register form button {
+      margin-top: 20px;
+    }
+  }
+  
+  

@@ -1,5 +1,4 @@
 /* src/Pages/BitacoraList/BitacoraList.css */
-
 :root {
   --primary-color: #4CAF50;
   --secondary-color: #388E3C;
@@ -82,12 +81,6 @@
   transform: scale(0.95);
 }
 
-@media (max-width: 600px) {
-  .filters input,
-  .filters select {
-    width: 100%;
-  }
-}
 
 /* Bitácoras */
 .bitacora-items {
@@ -160,110 +153,6 @@
   color: #888888;
 }
 
-@media (max-width: 600px) {
-  .filters input,
-  .filters select {
-    width: 100%;
-  }
-}
-
-/* src/Pages/BitacoraList/BitacoraList.css */
-
-:root {
-  --primary-color: #4CAF50;
-  --secondary-color: #388E3C;
-  --background-color: #F0F3F4;
-  --card-background-color: #FFFFFF;
-  --text-color: #333333;
-  --input-border-color: #CCCCCC;
-  --input-focus-border-color: var(--primary-color);
-  --shadow-color: rgba(0, 0, 0, 0.1);
-  --shadow-hover-color: rgba(0, 0, 0, 0.2);
-}
-
-.bitacora-list {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  padding: 2rem;
-  background-color: var(--background-color);
-  border-radius: 12px;
-  box-shadow: 0 4px 12px var(--shadow-color);
-}
-
-.filters {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  padding: 1.5rem;
-  background-color: var(--card-background-color);
-  border-radius: 12px;
-  box-shadow: 0 4px 12px var(--shadow-color);
-}
-
-.filters-title {
-  width: 100%;
-  font-size: 1.5rem;
-  color: var(--secondary-color);
-  margin-bottom: 1rem;
-  font-weight: bold;
-  border-bottom: 2px solid var(--primary-color);
-  padding-bottom: 0.5rem;
-}
-
-.filters input,
-.filters select {
-  padding: 0.75rem;
-  border: 1px solid var(--input-border-color);
-  border-radius: 8px;
-  font-size: 1rem;
-  width: 220px;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.filters input:focus,
-.filters select:focus {
-  border-color: var(--input-focus-border-color);
-  box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
-}
-
-.bitacora-items {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.bitacora-item {
-  position: relative;
-  padding: 1.5rem;
-  background-color: var(--card-background-color);
-  border-left: 4px solid var(--primary-color);
-  border-radius: 12px;
-  box-shadow: 0 2px 6px var(--shadow-color);
-  cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  overflow: hidden;
-}
-
-.bitacora-item:hover {
-  transform: scale(1.02);
-  box-shadow: 0 4px 12px var(--shadow-hover-color);
-}
-
-.bitacora-title {
-  font-size: 1.5em;
-  color: var(--secondary-color);
-  margin-bottom: 0.5rem;
-  font-weight: bold;
-}
-
-@media (max-width: 600px) {
-  .filters input,
-  .filters select {
-    width: 100%;
-  }
-}
-
 .filters input,
 .filters select {
   padding: 0.75rem;
@@ -334,3 +223,76 @@
   box-shadow: 0 0 8px rgba(76, 175, 80, 0.3);
 }
 
+/* Ajustes para tablets (máximo ancho: 1024px) */
+@media (max-width: 1024px) {
+  .bitacora-list {
+    padding: 1.5rem;
+  }
+
+  .filters {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .filters input,
+  .filters select {
+    width: 100%; /* Ocupa todo el ancho disponible */
+  }
+
+  .bitacora-items {
+    gap: 1rem;
+  }
+
+  .bitacora-item {
+    padding: 1rem;
+  }
+}
+
+/* Ajustes para celulares (máximo ancho: 440px) */
+@media (max-width: 440px) {
+  .bitacora-list {
+    padding: 1rem;
+  }
+
+  .filters {
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 0.5rem;
+  }
+
+  .filters-title {
+    font-size: 1.25rem; /* Reduce el tamaño de fuente */
+  }
+
+  .filters input,
+  .filters select {
+    width: 100%; /* Ocupa todo el ancho disponible */
+    font-size: 0.9rem; /* Reduce el tamaño de texto */
+  }
+
+  .filters input[type="date"] {
+    background-size: 1rem; /* Ajusta el ícono de calendario */
+  }
+
+  .bitacora-items {
+    gap: 0.5rem;
+  }
+
+  .bitacora-item {
+    padding: 0.75rem;
+    font-size: 0.85rem; /* Reduce el tamaño de fuente */
+  }
+
+  .bitacora-title {
+    font-size: 1.2rem;
+  }
+
+  .bitacora-description,
+  .bitacora-date,
+  .bitacora-location,
+  .bitacora-habitat,
+  .bitacora-climate {
+    font-size: 0.8rem;
+  }
+}

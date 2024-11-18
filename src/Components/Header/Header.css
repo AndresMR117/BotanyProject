@@ -1,26 +1,84 @@
 .header-container {
-  background-color: #4caf50; 
+  background-color: #4caf50;
   padding: 20px;
   text-align: center;
   color: white;
-  position: relative; 
+  position: relative;
+}
+
+.header-container .logout-button,
+.header-container .users-button {
+  color: #fff !important;
+  border-color: #fff !important;
 }
 
 .header-container .logout-button {
   position: absolute;
   top: 10px;
-  right: 10px; /* Espaciado desde la derecha */
-  color: #fff !important;
-  border-color: #fff !important;
+  right: 10px;
 }
 
 .header-container .users-button {
   position: absolute;
   top: 10px;
-  right: 165px; /* Espaciado desde el botón de cerrar sesión */
-  color: #fff !important;
-  border-color: #fff !important;
+  right: 165px;
 }
+
+/* Estilos para pantallas de tablet (hasta 1024px) */
+@media (max-width: 1024px) {
+  .header-container {
+    text-align: center; 
+    padding: 15px;
+  }
+
+  .header-container .header-title {
+    font-size: 1.8rem;
+    margin-bottom: 5px; 
+  }
+
+  .header-container .header-subtitle {
+    font-size: 1rem;
+    margin-top: 0; 
+  }
+
+  .header-container .logout-button {
+    top: 10px;
+    right: 10px;
+    font-size: 0.9rem;
+  }
+
+  .header-container .users-button {
+    top: 10px;
+    right: 165px; 
+    font-size: 0.9rem;
+  }
+}
+
+
+/* Estilos para pantallas de celulares (hasta 440px) */
+@media (max-width: 440px) {
+  .header-container {
+    text-align: center;
+    padding: 10px;
+  }
+
+  .header-container .header-title {
+    font-size: 1.5rem;
+  }
+
+  .header-container .header-subtitle {
+    font-size: 0.9rem;
+  }
+
+  .header-container .logout-button,
+  .header-container .users-button {
+    position: static;
+    margin: 5px;
+    display: inline-block;
+    font-size: 0.8rem;
+  }
+}
+
 
 
   

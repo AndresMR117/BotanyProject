@@ -152,3 +152,45 @@ button:last-child:hover {
     outline: none;
     box-shadow: 0 0 8px rgba(76, 175, 80, 0.2);
 }
+
+/* Responsividad para tablets (máximo 1024px) */
+@media (max-width: 1024px) {
+    .edit-bitacora {
+        padding: 1.5rem;
+    }
+
+    .edit-bitacora h1 {
+        font-size: 1.5rem;
+    }
+
+    .edit-bitacora input,
+    .edit-bitacora textarea {
+        font-size: 0.9rem;
+    }
+
+    button {
+        font-size: 0.85rem;
+    }
+}
+
+/* Responsividad para móviles (máximo 440px) */
+@media (max-width: 440px) {
+    .edit-bitacora {
+        padding: 1rem;
+    }
+
+    .edit-bitacora h1 {
+        font-size: 1.3rem;
+    }
+
+    .edit-bitacora input,
+    .edit-bitacora textarea {
+        font-size: 0.85rem;
+        padding: 0.6rem;
+    }
+
+    button {
+        padding: 0.6rem 1rem;
+        font-size: 0.8rem;
+    }
+}

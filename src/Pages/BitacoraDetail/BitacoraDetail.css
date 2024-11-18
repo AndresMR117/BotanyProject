@@ -1,4 +1,4 @@
-/* src/Pages/BitacoraDetail/BitacoraDetail.css */
+/* Estilos base - Desktop */
 .bitacora-detail {
   padding: 2.5rem;
   background: #fdfdfd;
@@ -45,7 +45,8 @@
 }
 
 .back-button,
-.delete-button {
+.delete-button,
+.edit-button {
   padding: 0.9rem 1.6rem;
   font-size: 1rem;
   font-weight: 500;
@@ -84,34 +85,9 @@
   outline: none;
 }
 
-.edit-button:hover,
-.edit-button:focus {
-  background-color: #c62828;
-  transform: translateY(-2px);
-  outline: none;
-}
-
-@media (max-width: 600px) {
-  .button-container {
-    flex-direction: column;
-  }
-
-  .back-button,
-  .delete-button {
-    margin: 0.5rem 0;
-  }
-}
-
-.export-pdf-button{
-  position: absolute;
-  top: 265px;
-  right: 375px;
-}
-
+.export-pdf-button,
 .add-note-button {
-  position: absolute;
-  top: 265px;
-  right: 980px;
+  position: relative;
   padding: 0.8rem 1.4rem;
   font-size: 1rem;
   font-weight: 500;
@@ -122,9 +98,78 @@
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin: 0.5rem;
 }
 
 .add-note-button:hover {
   background-color: #388e3c;
   transform: translateY(-2px);
+}
+
+/* Estilos para tablet - Ancho máximo de 1024px */
+@media (max-width: 1024px) {
+  .bitacora-detail {
+    padding: 2rem;
+    margin: 1.5rem auto;
+    max-width: 90%;
+  }
+
+  .detail-title {
+    font-size: 1.8rem;
+  }
+
+  .detail-description {
+    font-size: 1rem;
+    padding: 0.8rem;
+  }
+
+  .button-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .back-button,
+  .delete-button,
+  .edit-button {
+    flex: unset;
+    width: 100%;
+    margin: 0.5rem 0;
+  }
+
+  .export-pdf-button,
+  .add-note-button {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* Estilos para móviles - Ancho máximo de 440px */
+@media (max-width: 440px) {
+  .bitacora-detail {
+    padding: 1.5rem;
+    font-size: 0.9rem;
+  }
+
+  .detail-title {
+    font-size: 1.5rem;
+  }
+
+  .detail-description {
+    font-size: 0.9rem;
+    padding: 0.5rem;
+  }
+
+  .button-container {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .back-button,
+  .delete-button,
+  .edit-button,
+  .export-pdf-button,
+  .add-note-button {
+    padding: 0.7rem 1rem;
+    font-size: 0.9rem;
+  }
 }

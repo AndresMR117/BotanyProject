@@ -123,3 +123,70 @@ textarea.form-input {
   cursor: pointer;
 }
 
+/* Estilos para tablets (1024px) */
+@media (max-width: 1024px) {
+  .bitacora-form {
+    padding: 1.5rem;
+    max-width: 90%;
+  }
+
+  .form-field {
+    gap: 0.8rem;
+  }
+
+  .form-label {
+    font-size: 1em;
+  }
+
+  .form-input {
+    padding: 0.7rem;
+    font-size: 0.95em;
+  }
+
+  .add-species-button,
+  .submit-button {
+    font-size: 1em;
+    padding: 0.7rem 1.2rem;
+  }
+
+  .species-section {
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+}
+
+/* Estilos para celulares (440px y menores) */
+@media (max-width: 440px) {
+  .bitacora-form {
+    padding: 1rem;
+    max-width: 100%;
+  }
+
+  .form-field {
+    gap: 0.5rem;
+  }
+
+  .form-label {
+    font-size: 0.9em;
+  }
+
+  .form-input {
+    padding: 0.6rem;
+    font-size: 0.85em;
+  }
+
+  .add-species-button,
+  .submit-button {
+    font-size: 0.9em;
+    padding: 0.6rem 1rem;
+  }
+
+  .species-section {
+    padding: 0.8rem;
+    margin-bottom: 0.8rem;
+  }
+
+  textarea.form-input {
+    font-size: 0.85em;
+  }
+}

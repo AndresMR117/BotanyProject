@@ -1,32 +1,69 @@
+/* Estilo general de la barra de navegación */
+.navbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #66bb6a;
+  padding: 1rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  position: sticky; 
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar ul {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem; 
+  padding: 0;
+  margin: 0;
+}
 
 .navbar ul li {
   display: inline;
-  margin-right: 1rem;
 }
 
 .navbar ul li a {
   color: white;
-  text-decoration: none;
-}
-
-.navbar {
-  display: flex;
-  justify-content: center;
-  background-color: #66bb6a;
-  padding: 1rem;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.navbar a {
-  color: white;
-  padding: 0.8rem 2rem;
+  padding: 0.8rem 1.5rem;
   text-decoration: none;
   font-size: 1.2em;
   font-weight: bold;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  border-radius: 8px;
 }
 
-.navbar a:hover {
+.navbar ul li a:hover {
   background-color: #4caf50;
-  border-radius: 8px;
+  transform: scale(1.05);
+}
+
+/* Responsivo para tablets (1024px y menores) */
+@media (max-width: 1024px) {
+  .navbar {
+    flex-direction: column; 
+    align-items: center;
+    padding: 1rem 0.5rem;
+  }
+
+  .navbar ul li a {
+    font-size: 1rem; 
+    padding: 0.6rem 1rem; 
+  }
+}
+
+/* Responsivo para celulares (440px y menores) */
+@media (max-width: 440px) {
+  .navbar {
+    padding: 0.8rem;
+  }
+
+  .navbar ul li a {
+    font-size: 0.9rem; 
+    padding: 0.5rem 0.8rem;
+  }
+
+  .navbar ul {
+    gap: 0.8rem; 
+  }
 }

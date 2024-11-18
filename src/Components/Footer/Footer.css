@@ -1,8 +1,34 @@
-/* src/components/Footer.css */
+/* Estilo general para el footer */
 .footer {
-    background-color: #4caf50;
-    color: white;
-    padding: 10px;
-    text-align: center;
+  background-color: #4caf50;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  font-size: 1rem; 
+}
+
+/* Estilo para pantallas más grandes */
+@media (min-width: 1024px) {
+  .footer {
+    font-size: 1.1rem; 
+    padding: 15px; 
   }
+}
+
+/* Estilo para tablets (1024px y menores) */
+@media (max-width: 1024px) {
+  .footer {
+    font-size: 0.95rem; 
+    padding: 12px; 
+  }
+}
+
+/* Estilo para celulares (440px y menores) */
+@media (max-width: 440px) {
+  .footer {
+    font-size: 0.85rem; 
+    padding: 10px; 
+  }
+}
+
   

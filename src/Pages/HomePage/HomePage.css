@@ -58,3 +58,61 @@
 }
 
 
+/* Estilos (tablets) */
+@media (max-width: 1024px) {
+  .home-section {
+    padding: 40px 15px;
+    background-attachment: scroll; /* Mejora el rendimiento en móviles */
+  }
+
+  .home-content {
+    padding: 20px;
+    box-shadow: none; /* Simplifica el diseño para dispositivos pequeños */
+  }
+
+  .home-welcome {
+    font-size: 2em;
+  }
+
+  .home-description {
+    font-size: 1.2em;
+    text-align: justify; /* Mejor lectura en pantallas pequeñas */
+  }
+
+  .home-features h2, .home-instructions h2 {
+    font-size: 1.5em;
+  }
+
+  .home-features ul {
+    padding-left: 15px;
+    font-size: 1em;
+  }
+}
+
+/* Estilos (teléfonos) */
+@media (max-width: 440px) {
+  .home-section {
+    padding: 30px 10px;
+  }
+
+  .home-welcome {
+    font-size: 1.8em;
+  }
+
+  .home-description {
+    font-size: 1em;
+  }
+
+  .home-features h2, .home-instructions h2 {
+    font-size: 1.3em;
+  }
+
+  .home-features ul {
+    padding-left: 10px;
+  }
+
+  .home-content {
+    background: rgba(0, 0, 0, 0.7); /* Más contraste en pantallas pequeñas */
+    padding: 15px;
+  }
+}
