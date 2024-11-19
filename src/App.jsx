@@ -5,7 +5,7 @@ import { ThemeProvider, CssBaseline, createTheme } from '@mui/material';
 
 // Componentes principales
 import Header from './Components/Header/Header';
-import Footer from './components/Footer/Footer';
+import Footer from './Components/Footer/Footer';
 import NavBar from './Components/NavBar/NavBar';
 import HomePage from './Pages/HomePage/HomePage';
 import BitacoraForm from './Pages/BitacoraForm/BitacoraForm';
