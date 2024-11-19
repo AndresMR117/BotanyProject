@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { doc, updateDoc, arrayUnion } from 'firebase/firestore'; // Importar Firestore
+import { db } from '../../Components/Firebase/FirebaseConfig'; // Configuración de Firebase
 import './AddNote.css';
 
 const AddNote = () => {
@@ -7,21 +9,23 @@ const AddNote = () => {
   const navigate = useNavigate();
   const [note, setNote] = useState('');
 
-  const handleSave = () => {
-
+  const handleSave = async () => {
     if (note.trim() === '') {
       alert('La nota no puede estar vacía.');
       return;
     }
 
-    const storedBitacoras = JSON.parse(localStorage.getItem('bitacoras')) || [];
-    const updatedBitacoras = storedBitacoras.map((b) =>
-      b.id === Number(id)
-        ? { ...b, notes: [...(b.notes || []), note] }
-        : b
-    );
-    localStorage.setItem('bitacoras', JSON.stringify(updatedBitacoras));
-    navigate('/bitacoras');
+    try {
+      const bitacoraRef = doc(db, 'bitacora', id);
+      await updateDoc(bitacoraRef, {
+        notes: arrayUnion(note), // Agregar la nueva nota al array de notas
+      });
+      alert('Nota guardada exitosamente.');
+      navigate('/bitacoras'); // Redirigir a la lista de bitácoras
+    } catch (error) {
+      console.error('Error al guardar la nota:', error);
+      alert('Hubo un error al guardar la nota.');
+    }
   };
 
   return (

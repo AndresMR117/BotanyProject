@@ -23,6 +23,22 @@ const BitacoraForm = () => {
   };
 
   const handleSaveBitacora = async () => {
+    // Validar si todos los campos están completos
+    if (
+      !title.trim() ||
+      !dateTime.trim() ||
+      !location.trim() ||
+      !climate.trim() ||
+      !habitatDescription.trim() ||
+      !observations.trim() ||
+      !species.every(sp => 
+        sp.name.trim() && sp.commonName.trim() && sp.family.trim() && sp.quantity && sp.state
+      )
+    ) {
+      alert('Por favor, completa todos los campos antes de guardar la bitácora.');
+      return;
+    }
+
     try {
       // Subir imagen del sitio si existe
       const sitePhotoURL = sitePhoto
