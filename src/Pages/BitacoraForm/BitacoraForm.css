@@ -1,5 +1,4 @@
 /* src/Pages/BitacoraForm/BitacoraForm.css */
-
 .bitacora-form {
   display: flex;
   flex-direction: column;
@@ -30,7 +29,7 @@
   border-radius: 5px;
   font-size: 1em;
   background-color: #fff;
-  color: #333; /* Color del texto dentro del campo */
+  color: #333; 
   transition: border-color 0.3s ease;
 }
 
@@ -90,36 +89,36 @@ textarea.form-input {
   }
 }
 
-/* Estilos generales para el campo de entrada de fecha y hora */
+
 .form-input[type="datetime-local"] {
   padding: 0.8rem;
   border: 1px solid #d0d7de;
   border-radius: 5px;
   font-size: 1em;
-  color: #333; /* Color del texto de la fecha y hora */
+  color: #333; 
   background-color: #fff;
 }
 
-/* Cambia el color del ícono usando una máscara */
+
 .form-input[type="datetime-local"]::-webkit-datetime-edit,
 .form-input[type="datetime-local"]::-webkit-datetime-edit-year-field,
 .form-input[type="datetime-local"]::-webkit-datetime-edit-month-field,
 .form-input[type="datetime-local"]::-webkit-datetime-edit-day-field,
 .form-input[type="datetime-local"]::-webkit-datetime-edit-hour-field,
 .form-input[type="datetime-local"]::-webkit-datetime-edit-minute-field {
-  color: #333; /* Asegura que el color del texto de la fecha y hora sea negro */
+  color: #333; 
 }
 
-/* Estilo para el ícono de selección de fecha */
+
 .form-input[type="datetime-local"]::-webkit-calendar-picker-indicator {
-  background-color: #4CAF50; /* Color personalizado del ícono */
+  background-color: #4CAF50; 
   border-radius: 50%;
   padding: 5px;
 }
 
-/* Hover en el ícono */
+
 .form-input[type="datetime-local"]::-webkit-calendar-picker-indicator:hover {
-  background-color: #388e3c; /* Color de hover del ícono */
+  background-color: #388e3c; 
   cursor: pointer;
 }
 

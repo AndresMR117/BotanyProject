@@ -11,7 +11,7 @@ const BitacoraForm = () => {
   const [climate, setClimate] = useState('');
   const [habitatDescription, setHabitatDescription] = useState('');
   const [observations, setObservations] = useState('');
-  const [sitePhoto, setSitePhoto] = useState(null); // Para la imagen del sitio
+  const [sitePhoto, setSitePhoto] = useState(null); 
   const [species, setSpecies] = useState([
     { name: '', commonName: '', family: '', quantity: 1, state: '', photos: null },
   ]);
@@ -23,7 +23,7 @@ const BitacoraForm = () => {
   };
 
   const handleSaveBitacora = async () => {
-    // Validar si todos los campos están completos
+    
     if (
       !title.trim() ||
       !dateTime.trim() ||
@@ -53,7 +53,7 @@ const BitacoraForm = () => {
         climate,
         habitatDescription,
         observations,
-        sitePhoto: sitePhotoURL, // Guardar la URL de la imagen del sitio
+        sitePhoto: sitePhotoURL, 
       });
 
       // Añadir las especies como subcolección
@@ -69,7 +69,7 @@ const BitacoraForm = () => {
           family: sp.family,
           quantity: sp.quantity,
           state: sp.state,
-          photo: speciesPhotoURL, // Guardar la URL de la imagen de la especie
+          photo: speciesPhotoURL, 
         });
       }
 

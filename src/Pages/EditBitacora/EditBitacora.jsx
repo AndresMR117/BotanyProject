@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { doc, getDoc, collection, getDocs, updateDoc } from 'firebase/firestore';
-import { db } from '../../Components/Firebase/FirebaseConfig';
+import { db, storage } from '../../Components/Firebase/FirebaseConfig';
+import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage'; 
 import './EditBitacora.css';
 
 const EditBitacora = () => {
@@ -23,14 +24,12 @@ const EditBitacora = () => {
   useEffect(() => {
     const fetchBitacoraData = async () => {
       try {
-        // Obtener los datos de la bitácora desde Firestore
         const bitacoraRef = doc(db, 'bitacora', id);
         const bitacoraSnapshot = await getDoc(bitacoraRef);
 
         if (bitacoraSnapshot.exists()) {
           setBitacora(bitacoraSnapshot.data());
 
-          // Obtener las especies asociadas desde la subcolección
           const speciesCollectionRef = collection(bitacoraRef, 'especie');
           const speciesSnapshot = await getDocs(speciesCollectionRef);
           const speciesList = speciesSnapshot.docs.map((doc) => ({
@@ -73,13 +72,43 @@ const EditBitacora = () => {
     setSpecies(updatedSpecies);
   };
 
+  const handleFileChange = async (e, type) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const storageRef = ref(storage, `images/${file.name}`);
+    const uploadTask = uploadBytesResumable(storageRef, file);
+
+    // Subir el archivo a Firebase Storage
+    uploadTask.on(
+      'state_changed',
+      (snapshot) => {
+        // Progreso de la carga
+        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log('Subiendo...', progress);
+      },
+      (error) => {
+        console.error('Error al subir el archivo:', error);
+      },
+      async () => {
+        // Obtener la URL después de la carga
+        const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+        if (type === 'sitePhoto') {
+          setBitacora((prev) => ({ ...prev, sitePhoto: downloadURL }));
+        } else if (type === 'speciesPhoto') {
+          const updatedSpecies = [...species];
+          updatedSpecies[e.target.dataset.index].photo = downloadURL;
+          setSpecies(updatedSpecies);
+        }
+      }
+    );
+  };
+
   const handleSave = async () => {
     try {
-      // Actualizar los datos de la bitácora
       const bitacoraRef = doc(db, 'bitacora', id);
       await updateDoc(bitacoraRef, bitacora);
 
-      // Actualizar cada especie
       const speciesCollectionRef = collection(bitacoraRef, 'especie');
       for (const sp of species) {
         const speciesDocRef = doc(speciesCollectionRef, sp.id);
@@ -92,6 +121,10 @@ const EditBitacora = () => {
       console.error('Error al guardar los cambios:', error);
       alert('Hubo un error al guardar los cambios.');
     }
+  };
+
+  const handleCancel = () => {
+    navigate('/bitacoras'); 
   };
 
   if (loading) {
@@ -171,6 +204,17 @@ const EditBitacora = () => {
           Borrar
         </button>
       </label>
+
+      {/* Campo para la imagen del sitio */}
+      <label>
+        Foto del Sitio:
+        <input
+          type="file"
+          accept="image/*"
+          onChange={(e) => handleFileChange(e, 'sitePhoto')}
+        />
+      </label>
+
       <h3>Especies Recolectadas</h3>
       {species.map((sp, index) => (
         <div key={index} className="species-section">
@@ -207,36 +251,29 @@ const EditBitacora = () => {
               Borrar
             </button>
           </label>
+
+          {/* Campo para la imagen de la especie */}
           <label>
-            Cantidad de Muestras:
+            Foto de la Especie:
             <input
-              type="number"
-              value={sp.quantity}
-              onChange={(e) => handleSpeciesChange(index, 'quantity', e.target.value)}
+              type="file"
+              accept="image/*"
+              data-index={index}
+              onChange={(e) => handleFileChange(e, 'speciesPhoto')}
             />
-            <button type="button" onClick={() => handleClearSpeciesField(index, 'quantity')}>
-              Borrar
-            </button>
-          </label>
-          <label>
-            Estado:
-            <input
-              type="text"
-              value={sp.state}
-              onChange={(e) => handleSpeciesChange(index, 'state', e.target.value)}
-            />
-            <button type="button" onClick={() => handleClearSpeciesField(index, 'state')}>
-              Borrar
-            </button>
           </label>
         </div>
       ))}
-      <div className="button-container">
-        <button onClick={() => navigate(-1)}>Cancelar</button>
+
+      <div className="buttons">
         <button onClick={handleSave}>Guardar Cambios</button>
+        <button type="button" onClick={handleCancel}>Cancelar</button>
       </div>
     </section>
   );
 };
 
 export default EditBitacora;
+
+
+

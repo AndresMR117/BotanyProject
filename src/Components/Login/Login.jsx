@@ -26,7 +26,7 @@ function Login() {
     try {
       const usuarioFirebase = await createUserWithEmailAndPassword(auth, email, password);
       const docuRef = doc(firestore, `usuarios/${usuarioFirebase.user.uid}`);
-      await setDoc(docuRef, { correo: email, nombre: nombre });
+      await setDoc(docuRef, { correo: email, nombre: nombre, rol: "usuario"});
       
       Swal.fire({
         icon: 'success',

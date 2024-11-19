@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { doc, updateDoc, arrayUnion } from 'firebase/firestore'; // Importar Firestore
-import { db } from '../../Components/Firebase/FirebaseConfig'; // Configuración de Firebase
+import { doc, updateDoc, arrayUnion } from 'firebase/firestore'; 
+import { db } from '../../Components/Firebase/FirebaseConfig'; 
 import './AddNote.css';
 
 const AddNote = () => {
@@ -18,10 +18,10 @@ const AddNote = () => {
     try {
       const bitacoraRef = doc(db, 'bitacora', id);
       await updateDoc(bitacoraRef, {
-        notes: arrayUnion(note), // Agregar la nueva nota al array de notas
+        notes: arrayUnion(note), 
       });
       alert('Nota guardada exitosamente.');
-      navigate('/bitacoras'); // Redirigir a la lista de bitácoras
+      navigate('/bitacoras'); 
     } catch (error) {
       console.error('Error al guardar la nota:', error);
       alert('Hubo un error al guardar la nota.');

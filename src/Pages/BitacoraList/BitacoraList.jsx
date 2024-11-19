@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { collection, getDocs } from 'firebase/firestore';
-import { db } from '../../Components/Firebase/FirebaseConfig'; // Importar Firestore desde tu configuración
+import { db } from '../../Components/Firebase/FirebaseConfig'; 
 import './BitacoraList.css';
 
 const BitacoraList = () => {

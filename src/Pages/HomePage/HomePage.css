@@ -62,12 +62,12 @@
 @media (max-width: 1024px) {
   .home-section {
     padding: 40px 15px;
-    background-attachment: scroll; /* Mejora el rendimiento en móviles */
+    background-attachment: scroll; 
   }
 
   .home-content {
     padding: 20px;
-    box-shadow: none; /* Simplifica el diseño para dispositivos pequeños */
+    box-shadow: none; 
   }
 
   .home-welcome {
@@ -76,7 +76,7 @@
 
   .home-description {
     font-size: 1.2em;
-    text-align: justify; /* Mejor lectura en pantallas pequeñas */
+    text-align: justify; 
   }
 
   .home-features h2, .home-instructions h2 {
@@ -112,7 +112,7 @@
   }
 
   .home-content {
-    background: rgba(0, 0, 0, 0.7); /* Más contraste en pantallas pequeñas */
+    background: rgba(0, 0, 0, 0.7); 
     padding: 15px;
   }
 }

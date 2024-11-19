@@ -1,17 +1,16 @@
 /* src/Pages/EditBitacora/EditBitacora.css */
-
 .edit-bitacora {
     padding: 2rem;
     max-width: 600px;
     margin: 2rem auto;
-    background: #f9f9fb; /* Fondo claro para reducir la fatiga visual */
+    background: #f9f9fb; 
     border-radius: 16px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15); /* Sombra sutil para dar profundidad */
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15); 
     transition: transform 0.3s ease;
 }
 
 .edit-bitacora:hover {
-    transform: scale(1.01); /* Efecto ligero de agrandamiento al pasar el cursor */
+    transform: scale(1.01); 
 }
 
 .edit-bitacora h1 {
@@ -48,7 +47,7 @@
 
 .edit-bitacora input:focus,
 .edit-bitacora textarea:focus {
-    border-color: #4caf50; /* Color de borde para mejorar el enfoque */
+    border-color: #4caf50; 
     outline: none;
     box-shadow: 0 0 8px rgba(76, 175, 80, 0.2);
 }
@@ -111,11 +110,11 @@ button:last-child:hover {
 
 .delete-button:hover {
     background-color: #c0392b;
-    transform: scale(1.05); /* Agranda ligeramente al pasar el cursor */
+    transform: scale(1.05); 
 }
 
 .delete-button::before {
-    content: '🗑️ '; /* Icono de basura antes del texto */
+    content: '🗑️ '; 
     margin-right: 4px;
 }
 
@@ -125,7 +124,7 @@ button:last-child:hover {
 }
 
 .edit-bitacora textarea {
-    resize: vertical; /* Permite redimensionar solo en vertical */
+    resize: vertical; 
     min-height: 100px;
     max-height: 200px;
 }
@@ -148,10 +147,32 @@ button:last-child:hover {
 }
 
 .edit-bitacora input[type="datetime-local"]:focus {
-    border-color: #4caf50; /* Cambia el color del borde al enfoque */
+    border-color: #4caf50; 
     outline: none;
     box-shadow: 0 0 8px rgba(76, 175, 80, 0.2);
 }
+
+.buttons {
+    display: flex;
+    justify-content: space-between; 
+    gap: 10px; 
+    margin-top: 20px;
+  }
+  
+  button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    background-color: #4CAF50; 
+    color: white;
+    border-radius: 5px;
+  }
+  
+  button:hover {
+    background-color: #45a049; 
+  }
+  
 
 /* Responsividad para tablets (máximo 1024px) */
 @media (max-width: 1024px) {

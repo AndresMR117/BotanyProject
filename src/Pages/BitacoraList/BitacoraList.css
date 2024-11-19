@@ -237,7 +237,7 @@
 
   .filters input,
   .filters select {
-    width: 100%; /* Ocupa todo el ancho disponible */
+    width: 100%; 
   }
 
   .bitacora-items {
@@ -262,17 +262,17 @@
   }
 
   .filters-title {
-    font-size: 1.25rem; /* Reduce el tamaño de fuente */
+    font-size: 1.25rem; 
   }
 
   .filters input,
   .filters select {
-    width: 100%; /* Ocupa todo el ancho disponible */
-    font-size: 0.9rem; /* Reduce el tamaño de texto */
+    width: 100%; 
+    font-size: 0.9rem; 
   }
 
   .filters input[type="date"] {
-    background-size: 1rem; /* Ajusta el ícono de calendario */
+    background-size: 1rem; 
   }
 
   .bitacora-items {
@@ -281,7 +281,7 @@
 
   .bitacora-item {
     padding: 0.75rem;
-    font-size: 0.85rem; /* Reduce el tamaño de fuente */
+    font-size: 0.85rem; 
   }
 
   .bitacora-title {

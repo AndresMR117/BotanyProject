@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { jsPDF } from 'jspdf'; // Importamos jsPDF
-import { doc, getDoc, collection, getDocs, deleteDoc } from 'firebase/firestore'; // Firestore
-import { db } from '../../Components/Firebase/FirebaseConfig'; // Configuración de Firebase
+import { jsPDF } from 'jspdf'; 
+import { doc, getDoc, collection, getDocs, deleteDoc } from 'firebase/firestore'; 
+import { db } from '../../Components/Firebase/FirebaseConfig'; 
 import './BitacoraDetail.css';
 
 const BitacoraDetail = () => {
     const { id } = useParams();
     const navigate = useNavigate();
     const [bitacora, setBitacora] = useState(null);
-    const [especies, setEspecies] = useState([]); // Estado para las especies
+    const [especies, setEspecies] = useState([]); 
 
-    // Obtener la bitácora y las especies
+   
     useEffect(() => {
         const fetchBitacora = async () => {
             try {
@@ -20,7 +20,7 @@ const BitacoraDetail = () => {
                 if (bitacoraSnap.exists()) {
                     setBitacora({ id: bitacoraSnap.id, ...bitacoraSnap.data() });
                     
-                    // Obtener especies relacionadas (subcolección)
+                   
                     const especiesRef = collection(bitacoraRef, 'especie');
                     const especiesSnap = await getDocs(especiesRef);
                     const especiesData = especiesSnap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
@@ -37,10 +37,10 @@ const BitacoraDetail = () => {
 
     const handleDelete = async () => {
         try {
-            // Eliminar la bitácora
+           
             await deleteDoc(doc(db, 'bitacora', id));
             alert('Bitácora eliminada exitosamente.');
-            navigate('/bitacoras'); // Redirigir a la lista de bitácoras
+            navigate('/bitacoras'); 
         } catch (error) {
             console.error('Error al eliminar la bitácora:', error);
             alert('Hubo un error al eliminar la bitácora.');
@@ -57,23 +57,23 @@ const BitacoraDetail = () => {
 
     const handleExportPDF = async () => {
         const doc = new jsPDF();
-        // Colores personalizados
+       
         const greenPrimary = [46, 125, 50];
         const greenLight = [241, 248, 233];
         const textDark = [33, 37, 41];
         const gray = [100];
     
-        // Fondo de título
+        
         doc.setFillColor(...greenPrimary);
         doc.rect(0, 0, 210, 25, 'F');
     
-        // Encabezado
+        
         doc.setFont('helvetica', 'bold');
         doc.setFontSize(18);
         doc.setTextColor(255, 255, 255);
         doc.text('Bitácora de Observación', 105, 15, null, null, 'center');
     
-        // Detalles de la bitácora
+        
         doc.setFont('helvetica', 'normal');
         doc.setFontSize(12);
         doc.setTextColor(...textDark);
@@ -94,7 +94,7 @@ const BitacoraDetail = () => {
     
         let yPosition = 100;
     
-        // Agregar imagen del sitio
+      
         if (bitacora.sitePhoto) {
             try {
                 const imgData = await fetch(bitacora.sitePhoto).then((res) => res.blob()).then((blob) => {
@@ -104,14 +104,14 @@ const BitacoraDetail = () => {
                         reader.readAsDataURL(blob);
                     });
                 });
-                doc.addImage(imgData, 'JPEG', 10, yPosition, 60, 40); // Ajusta las dimensiones según sea necesario
+                doc.addImage(imgData, 'JPEG', 10, yPosition, 60, 40); 
                 yPosition += 50;
             } catch (error) {
                 console.error('Error al cargar la imagen del sitio:', error);
             }
         }
     
-        // Observaciones
+       
         if (bitacora.observations) {
             doc.setFillColor(...greenLight);
             doc.rect(10, yPosition, 190, 10, 'F');
@@ -121,26 +121,26 @@ const BitacoraDetail = () => {
             doc.text('Observaciones:', 15, yPosition + 7);
             yPosition += 15;
     
-            // Agregar el texto de las observaciones
+           
             doc.setFont('helvetica', 'normal');
             doc.setTextColor(...textDark);
             const observationsText = bitacora.observations || "No hay observaciones";
     
-            // Dividir el texto en líneas para que se ajuste al ancho de la página
+          
             const lines = doc.splitTextToSize(observationsText, 190);
             doc.text(lines, 10, yPosition);
     
-            // Ajustar la posición después de las observaciones
-            yPosition += lines.length * 6; // Ajusta la altura según el tamaño de las líneas
+          
+            yPosition += lines.length * 6; 
     
-            // Asegurarse de que no se solapen con otros elementos
+       
             if (yPosition > 270) {
                 doc.addPage();
                 yPosition = 20;
             }
         }
     
-        // Especies observadas
+       
         doc.setFillColor(...greenLight);
         doc.rect(10, yPosition, 190, 10, 'F');
     
@@ -149,7 +149,7 @@ const BitacoraDetail = () => {
         doc.text('Especies Observadas:', 15, yPosition + 7);
         yPosition += 15;
     
-        // Detalles de las especies con imágenes
+     
         for (const especie of especies) {
             doc.setFont('helvetica', 'normal');
             doc.setTextColor(...textDark);
@@ -164,7 +164,7 @@ const BitacoraDetail = () => {
             doc.text(`Estado: ${especie.state}`, 10, yPosition);
             yPosition += 10;
     
-            // Imagen de la especie
+           
             if (especie.photo) {
                 try {
                     const imgData = await fetch(especie.photo).then((res) => res.blob()).then((blob) => {
@@ -174,21 +174,21 @@ const BitacoraDetail = () => {
                             reader.readAsDataURL(blob);
                         });
                     });
-                    doc.addImage(imgData, 'JPEG', 10, yPosition, 60, 40); // Ajusta las dimensiones según sea necesario
+                    doc.addImage(imgData, 'JPEG', 10, yPosition, 60, 40); 
                     yPosition += 50;
                 } catch (error) {
                     console.error(`Error al cargar la imagen de la especie ${especie.name}:`, error);
                 }
             }
     
-            // Ajustar posición para evitar solapamiento
+           
             if (yPosition > 270) {
                 doc.addPage();
                 yPosition = 20;
             }
         }
     
-        // Pie de página
+       
         const pageHeight = doc.internal.pageSize.height;
     
         doc.setFont('helvetica', 'italic');
