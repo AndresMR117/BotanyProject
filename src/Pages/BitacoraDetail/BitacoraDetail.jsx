@@ -1,23 +1,48 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { jsPDF } from 'jspdf'; // Importamos jsPDF
+import { doc, getDoc, collection, getDocs } from 'firebase/firestore'; // Firestore
+import { db } from '../../Components/Firebase/FirebaseConfig'; // Configuración de Firebase
 import './BitacoraDetail.css';
 
 const BitacoraDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [bitacora, setBitacora] = useState(null);
+  const [especies, setEspecies] = useState([]);
 
+  // Obtener la bitácora y las especies
   useEffect(() => {
-    const storedBitacoras = JSON.parse(localStorage.getItem('bitacoras')) || [];
-    const foundBitacora = storedBitacoras.find((b) => b.id === Number(id));
-    setBitacora(foundBitacora);
+    const fetchBitacora = async () => {
+      try {
+        const bitacoraRef = doc(db, 'bitacora', id);
+        const bitacoraSnap = await getDoc(bitacoraRef);
+
+        if (bitacoraSnap.exists()) {
+          setBitacora({ id: bitacoraSnap.id, ...bitacoraSnap.data() });
+
+          // Obtener especies relacionadas (subcolección)
+          const especiesRef = collection(bitacoraRef, 'especies');
+          const especiesSnap = await getDocs(especiesRef);
+
+          const especiesData = especiesSnap.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data(),
+          }));
+          setEspecies(especiesData);
+        } else {
+          console.error('La bitácora no existe.');
+        }
+      } catch (error) {
+        console.error('Error al obtener los datos:', error);
+      }
+    };
+
+    fetchBitacora();
   }, [id]);
 
-  const handleDelete = () => {
-    const storedBitacoras = JSON.parse(localStorage.getItem('bitacoras')) || [];
-    const updatedBitacoras = storedBitacoras.filter((b) => b.id !== Number(id));
-    localStorage.setItem('bitacoras', JSON.stringify(updatedBitacoras));
+  const handleDelete = async () => {
+    // Aquí implementas la eliminación de Firestore si es necesario
     navigate('/bitacoras');
   };
 
@@ -48,7 +73,7 @@ const BitacoraDetail = () => {
     doc.setTextColor(255, 255, 255);
     doc.text('Bitácora de Observación', 105, 15, null, null, 'center');
 
-    // Sección de contenido
+    // Detalles de la bitácora
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(12);
     doc.setTextColor(...textDark);
@@ -66,17 +91,19 @@ const BitacoraDetail = () => {
     doc.text(`Localización: ${bitacora.location}`, 10, 70);
     doc.text(`Condiciones Climáticas: ${bitacora.climate}`, 10, 80);
 
-    // Descripción del hábitat
+    // Especies
     doc.setFillColor(...greenLight);
     doc.rect(10, 90, 190, 10, 'F');
     doc.setFont('helvetica', 'bold');
     doc.setTextColor(...greenPrimary);
-    doc.text('Descripción del Hábitat:', 15, 97);
+    doc.text('Especies Observadas:', 15, 97);
 
     doc.setFont('helvetica', 'normal');
     doc.setTextColor(...textDark);
-    const splitDescription = doc.splitTextToSize(bitacora.habitatDescription, 180);
-    doc.text(splitDescription, 10, 110);
+    especies.forEach((especie, index) => {
+      const yPosition = 110 + index * 10;
+      doc.text(`${index + 1}. ${especie.nombre} - ${especie.descripcion}`, 10, yPosition);
+    });
 
     // Pie de página
     const pageHeight = doc.internal.pageSize.height;
@@ -103,6 +130,16 @@ const BitacoraDetail = () => {
       <p className="detail-location">Localización: {bitacora.location}</p>
       <p className="detail-climate">Condiciones Climáticas: {bitacora.climate}</p>
       <p className="detail-description"> Descripción del Hábitat: {bitacora.habitatDescription}</p>
+
+      <h2 className="species-title">Especies Observadas</h2>
+      <ul className="species-list">
+        {especies.map((especie) => (
+          <li key={especie.id}>
+            <p><strong>{especie.nombre}</strong>: {especie.descripcion}</p>
+          </li>
+        ))}
+      </ul>
+
       <div className="button-container">
         <button className="back-button" onClick={() => navigate(-1)}>Volver</button>    
         <button className="edit-button" onClick={handleEdit}>Editar Bitácora</button>    

@@ -1,6 +1,7 @@
-// src/Pages/BitacoraList/BitacoraList.jsx
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from '../../Components/Firebase/FirebaseConfig'; // Importar Firestore desde tu configuración
 import './BitacoraList.css';
 
 const BitacoraList = () => {
@@ -17,12 +18,26 @@ const BitacoraList = () => {
   });
   const [sortOrder, setSortOrder] = useState('date');
 
+  // Obtener las bitácoras desde Firestore
   useEffect(() => {
-    const storedBitacoras = JSON.parse(localStorage.getItem('bitacoras')) || [];
-    setBitacoras(storedBitacoras);
-    setFilteredBitacoras(storedBitacoras);
+    const fetchBitacoras = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, 'bitacora'));
+        const bitacoraData = querySnapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setBitacoras(bitacoraData);
+        setFilteredBitacoras(bitacoraData);
+      } catch (error) {
+        console.error('Error al obtener las bitácoras:', error);
+      }
+    };
+
+    fetchBitacoras();
   }, []);
 
+  // Filtrar las bitácoras
   useEffect(() => {
     let result = bitacoras;
 
@@ -139,7 +154,7 @@ const BitacoraList = () => {
         {filteredBitacoras.map(bitacora => (
           <div key={bitacora.id} className="bitacora-item" onClick={() => handleNavigate(bitacora.id)}>
             <h3>{bitacora.title}</h3>
-            <p>Fecha y Hora: {new Date(bitacora.dateTime).toLocaleString()}</p> {/* Cambiamos a bitacora.dateTime */}
+            <p>Fecha y Hora: {new Date(bitacora.dateTime).toLocaleString()}</p>
             <p>Ubicación: {bitacora.location}</p>
             <p>Hábitat: {bitacora.habitatDescription}</p>
             <p>Clima: {bitacora.climate}</p>
